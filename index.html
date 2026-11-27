@@ -1,0 +1,683 @@
+
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tajemství zlatého zvonečku | Adventní kalendář zdarma</title>
+
+    <meta name="description" content="Kouzelný adventní kalendář pro děti. 24 pohádek, 24 omalovánek a jedno nezapomenutelné dobrodružství malého bílého kocourka. Zdarma ke stažení.">
+
+    <meta property="og:title" content="Tajemství zlatého zvonečku">
+    <meta property="og:description" content="24 pohádek · 24 omalovánek · 24 dní plných kouzel. Stáhněte si adventní kalendář zdarma.">
+    <meta property="og:image" content="https://advent.zajait.cz/kocourek.webp">
+    <meta property="og:url" content="https://advent.zajait.cz/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="cs_CZ">
+
+    <link rel="canonical" href="https://advent.zajait.cz/">
+    <link rel="icon" type="image/webp" href="kocourek.webp">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* =========================
+           ZÁKLADNÍ NASTAVENÍ
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #08152d;
+            --gold: #e8c77e;
+            --cream: #fff5e5;
+            --muted: #d8dce6;
+            --red: #a52d3e;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--cream);
+            line-height: 1.65;
+            background:
+                radial-gradient(ellipse at 15% 30%, #233f65 0%, transparent 55%),
+                radial-gradient(ellipse at 90% 90%, #192e50 0%, transparent 50%),
+                var(--navy);
+            overflow-x: hidden;
+        }
+
+        /* =========================
+           HVĚZDIČKY A SNÍH
+        ========================= */
+
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image:
+                radial-gradient(circle, #e8c77e90 1px, transparent 1.6px),
+                radial-gradient(circle, #ffffff60 1px, transparent 1.5px),
+                radial-gradient(circle, #e8c77e50 1.5px, transparent 2px);
+            background-size:
+                113px 113px,
+                79px 79px,
+                197px 197px;
+            background-position:
+                12px 30px,
+                40px 15px,
+                80px 90px;
+        }
+
+        .snow {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -20px;
+            color: #ffffff;
+            opacity: 0.5;
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            from {
+                transform: translate3d(0, -20px, 0);
+            }
+
+            to {
+                transform: translate3d(45px, 105vh, 0);
+            }
+        }
+
+        /* =========================
+           PC VERZE
+        ========================= */
+
+        .page {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 35px 45px 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            align-items: center;
+            gap: 65px;
+        }
+
+        /* OBRÁZEK KOCOURKA */
+
+        .illustration {
+            position: relative;
+            width: 100%;
+            max-width: 490px;
+            margin: 0 auto;
+            padding: 7px;
+            border: 1px solid var(--gold);
+            border-radius: 22px;
+            box-shadow: 0 0 50px rgba(232, 199, 126, 0.15);
+        }
+
+        .illustration img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        .corner {
+            position: absolute;
+            color: var(--gold);
+            font-size: 27px;
+            line-height: 1;
+            text-shadow: 0 0 15px #e8c77e;
+        }
+
+        .top-left {
+            top: -14px;
+            left: -14px;
+        }
+
+        .top-right {
+            top: -14px;
+            right: -14px;
+        }
+
+        .bottom-left {
+            bottom: -14px;
+            left: -14px;
+        }
+
+        .bottom-right {
+            bottom: -14px;
+            right: -14px;
+        }
+
+        /* TEXTOVÁ ČÁST */
+
+        .content {
+            text-align: center;
+        }
+
+        .eyebrow {
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 3vw, 45px);
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--gold);
+            text-shadow: 0 2px 20px rgba(232, 199, 126, 0.15);
+        }
+
+        .ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: var(--gold);
+            margin: 15px auto;
+            max-width: 280px;
+            font-size: 20px;
+        }
+
+        .ornament::before,
+        .ornament::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(
+                to right,
+                transparent,
+                var(--gold)
+            );
+        }
+
+        .ornament::after {
+            transform: rotate(180deg);
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .story-intro {
+            font-size: 15px;
+            color: var(--cream);
+            line-height: 1.8;
+        }
+
+        .story-intro p {
+            margin-bottom: 13px;
+        }
+
+        .invitation {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--gold);
+}
+
+        .instructions {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 17px;
+        }
+
+        .dedication {
+    font-size: 14px;
+    color: var(--gold);
+    margin: 16px 0 20px;
+}
+
+        /* TLAČÍTKO KE STAŽENÍ */
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 11px;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #b93648, #8d2032);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .download-button:hover {
+            background: #c43c4e;
+            transform: translateY(-2px);
+        }
+
+        .download-button:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 5px;
+        }
+
+        .download-button svg {
+            width: 21px;
+            height: 21px;
+            flex-shrink: 0;
+        }
+
+        /* DOBROVOLNÝ PŘÍSPĚVEK */
+
+        .support {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            border-top: 1px solid rgba(232, 199, 126, 0.35);
+            margin-top: 25px;
+            padding-top: 22px;
+        }
+
+        .support-text {
+            text-align: left;
+            max-width: 340px;
+        }
+
+        .support h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            font-weight: 500;
+            color: var(--gold);
+            margin-bottom: 7px;
+        }
+
+        .support p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+.support .bank-account {
+    margin-top: 10px;
+    color: var(--gold);
+    font-size: 14px;
+    user-select: all;
+}
+
+        .qr {
+            display: block;
+            width: 115px;
+            height: auto;
+            padding: 7px;
+            border-radius: 8px;
+            background: #ffffff;
+            border: 1px solid var(--gold);
+            flex-shrink: 0;
+        }
+
+        /* PATIČKA */
+
+        footer {
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            color: var(--gold);
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(232, 199, 126, 0.2);
+        }
+
+        /* =========================
+           TABLET
+        ========================= */
+
+        @media (min-width: 768px) and (max-width: 1024px) {
+
+            .page {
+                padding: 40px 35px 20px;
+            }
+
+            .layout {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .illustration {
+                max-width: 340px;
+            }
+
+            .content {
+                max-width: 680px;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 39px;
+            }
+
+            .story-intro {
+                font-size: 16px;
+            }
+
+            .support {
+                gap: 30px;
+            }
+
+            .qr {
+                width: 125px;
+            }
+
+        }
+
+        /* =========================
+           MOBIL
+        ========================= */
+
+        @media (max-width: 767px) {
+
+            .page {
+                padding: 30px 23px 20px;
+            }
+
+            .layout {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .illustration {
+                max-width: 280px;
+                padding: 5px;
+                border-radius: 17px;
+            }
+
+            .illustration img {
+                border-radius: 12px;
+            }
+
+            .corner {
+                font-size: 23px;
+            }
+
+            .eyebrow {
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .ornament {
+                margin: 13px auto;
+                max-width: 200px;
+            }
+
+            .subtitle {
+                font-size: 13px;
+                margin-bottom: 18px;
+            }
+
+            .story-intro {
+                font-size: 15px;
+                line-height: 1.75;
+            }
+
+            .invitation {
+                font-size: 17px;
+            }
+
+            .instructions {
+                font-size: 14px;
+            }
+
+            .dedication {
+                font-size: 13px;
+            }
+
+            .download-button {
+                width: 100%;
+                max-width: 420px;
+                padding: 15px 12px;
+                font-size: 14px;
+            }
+
+            .support {
+                flex-direction: column;
+                gap: 17px;
+                margin-top: 28px;
+                padding-top: 23px;
+            }
+
+            .support-text {
+                text-align: center;
+                max-width: 360px;
+            }
+
+            .support h2 {
+                font-size: 22px;
+            }
+
+            .support p {
+                font-size: 14px;
+            }
+
+            .qr {
+                width: 135px;
+            }
+
+            footer {
+                margin-top: 25px;
+            }
+
+        }
+
+        /* OMEZENÍ ANIMACÍ */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .snow {
+                display: none;
+            }
+
+            .download-button {
+                transition: none;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="stars" aria-hidden="true"></div>
+    <div class="snow" aria-hidden="true"></div>
+
+    <main class="page">
+
+        <div class="layout">
+
+            <!-- BAREVNÝ KOCOUREK -->
+
+            <div class="illustration">
+
+
+                <img
+                    src="kocourek.webp"
+                    alt="Malý bílý kocourek se zlatým zvonečkem v kouzelné zimní krajině"
+                    fetchpriority="high"
+                >
+
+            </div>
+
+            <!-- OBSAH -->
+
+            <div class="content">
+
+                <p class="eyebrow">Kouzelný advent pro děti</p>
+
+                <h1>Tajemství zlatého zvonečku</h1>
+
+                <div class="ornament" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width="26" height="26" viewBox="0 0 24 24"
+         fill="none" stroke="currentColor"
+         stroke-width="1.5" stroke-linecap="round"
+         stroke-linejoin="round">
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+        <path d="M10 21a2 2 0 0 0 4 0"/>
+        <path d="M12 2V1"/>
+    </svg>
+</div>
+
+                <p class="subtitle">
+                    24 pohádek · 24 omalovánek · 24 dní plných kouzel
+                </p>
+
+                <div class="story-intro">
+
+                    <p>
+                        Kdesi mezi nebem a zemí se ukrývají kouzelné světy plné neobyčejných příběhů. Jednoho dne se na cestu mezi nimi vydává malý bílý kocourek se zlatým zvonečkem na krku. Nikdo netuší, odkud přichází, kam má namířeno ani jaké tajemství ukrývá jeho zvoneček.
+                    </p>
+
+                    <p class="invitation">
+                        Vydejte se společně s ním na čtyřiadvacet kouzelných dobrodružství, jejichž tajemství se postupně odhalí až na Štědrý den.
+                    </p>
+
+                </div>
+
+                <p class="instructions">
+                    Stačí kalendář vytisknout, rozdělit například do 24 očíslovaných obálek a každý den společně otevřít jedno nové pohádkové dobrodružství.
+                </p>
+
+                <p class="dedication">
+                    Vytvořeno s láskou pro mou dceru.<br>
+                    Sdíleno pro radost dalších dětí.
+                </p>
+
+                <!-- STAŽENÍ PDF -->
+
+              <a
+    class="download-button"
+    href="adventni-kalendar.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+>
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M12 3v12"/>
+                        <path d="m7 10 5 5 5-5"/>
+                        <path d="M4 17v4h16v-4"/>
+                    </svg>
+
+                    Stáhnout adventní kalendář zdarma (PDF)
+
+                </a>
+
+                <!-- DOBROVOLNÝ PŘÍSPĚVEK -->
+
+                <section class="support">
+
+                    <div class="support-text">
+
+                        <h2>Chcete podpořit mou tvorbu?</h2>
+
+                        <p>
+                            Pokud vám kalendář udělá radost, můžete mě potěšit libovolným dobrovolným příspěvkem. Děkuji!
+                        </p>
+
+<p class="bank-account">
+    Číslo účtu: <strong>238323256/0600</strong>
+</p>
+
+                    </div>
+
+                    <img
+                        class="qr"
+                        src="qr.webp"
+                        alt="QR kód pro dobrovolný příspěvek"
+                    >
+
+                </section>
+
+            </div>
+
+        </div>
+
+        <footer>
+            S láskou vytvořila Andrea · 2026
+        </footer>
+
+    </main>
+
+    <!-- JEMNĚ PADAJÍCÍ SNÍH -->
+
+    <script>
+
+        const snow = document.querySelector('.snow');
+
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+
+            const count = window.innerWidth < 768 ? 20 : 40;
+
+            for (let i = 0; i < count; i++) {
+
+                const flake = document.createElement('span');
+
+                flake.className = 'snowflake';
+                flake.textContent = '•';
+
+                flake.style.left = Math.random() * 100 + '%';
+                flake.style.fontSize = (Math.random() * 8 + 4) + 'px';
+                flake.style.opacity = Math.random() * 0.45 + 0.15;
+                flake.style.animationDuration = (Math.random() * 12 + 12) + 's';
+                flake.style.animationDelay = -(Math.random() * 24) + 's';
+
+                snow.appendChild(flake);
+
+            }
+
+        }
+
+    </script>
+
+</body>
+</html>
